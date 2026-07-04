@@ -1,7 +1,4 @@
 from fastapi import FastAPI , Depends
-from typing import Annotated
-from pydantic import BaseModel
-from typing import Optional
 from app.routing import todo
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -48,18 +45,4 @@ async def validation_exception_handler(request, exc):
 
 
 
-
-
-class Students(BaseModel):
-    name : Optional[str] = None
-    age : Optional[int] = None
-    school : Optional[str] = None
-
-
-@app.get("/")
-def root(query:Annotated[Students, Depends()]):
-    return{
-        "Message": "hello World",
-        "params": query
-    }
 
