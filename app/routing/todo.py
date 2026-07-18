@@ -1,13 +1,14 @@
 from fastapi import APIRouter , Depends , HTTPException
-from app.models.todo import CreateTodo
+from app.models.todo_model import CreateTodo
 from typing import Annotated
 from sqlalchemy.orm import Session
 from app.database.db import get_db
-from app.database.schema import Todo_Schema 
+from app.database.schema.todo_schema import Todo_Schema 
 from sqlalchemy import select 
+from app.dependencies import authenicate_user
 
 
-router = APIRouter(prefix="/todo")
+router = APIRouter(prefix="/todo" , dependencies=[Depends(authenicate_user)])
 
 @router.get("/")
 def index(db: Annotated[Session,Depends(get_db)]):
@@ -18,15 +19,11 @@ def index(db: Annotated[Session,Depends(get_db)]):
     return{"Message": "This is todo Router", "Todo's": todos}
 
 @router.get("/{id}")
-def show(id: int , db: Annotated[Session , Depends(get_db)]):
-    # stmt = select(Todo_Schema.id , Todo_Schema.content , Todo_Schema.is_completed).where(
-    #     Todo_Schema.id == id
-    # )
+def show(id: int, db: Annotated[Session, Depends(get_db)]):
     todo = db.query(Todo_Schema).filter(Todo_Schema.id == id).first()
-    return{
-        "items": todo
-    }
-
+    if not todo:
+        raise HTTPException(status_code=404, detail="Item not found !!!")
+    return {"items": todo}
 
 
 @router.post("/")

@@ -1,4 +1,4 @@
-from sqlalchemy import Column,Integer,String,Boolean,DateTime
+from sqlalchemy import Integer,String,Boolean,DateTime
 from sqlalchemy.orm import Mapped , mapped_column
 from ..db import Base
 from datetime import datetime, timezone
@@ -12,9 +12,5 @@ class Todo_Schema(Base):
     created_at : Mapped[datetime] = mapped_column(DateTime, nullable=False, default=lambda: datetime.now(timezone.utc))
     updated_at : Mapped[datetime] = mapped_column(DateTime,nullable=True,onupdate=lambda: datetime.now(timezone.utc))
     
-
-
-
-
 
 
