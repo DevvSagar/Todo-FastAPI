@@ -11,23 +11,27 @@ router = APIRouter(prefix="/auth")
 
 
 @router.post("/login")
-def login(data: Login , db:Annotated[Session , Depends(get_db)]):
+def login(data: Login, db: Annotated[Session, Depends(get_db)]):
     user = db.query(UserSchema).filter(UserSchema.email == data.email).first()
+
     if not user:
-        raise HTTPException(status_code=401, detail="Invalid User")
-    
-    if not verifyPassword(data.password , user.password):
-        raise HTTPException(status_code=401, detail="Invalid Password")
-    
-    payload = {
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    }
-    
+    if not verifyPassword(data.password, user.password):
+        raise HTTPException(status_code=401, detail="Invalid credentials")
+
+    token = create_access_token({"sub": user.email})
+
     return {
-        "Message" : "Logged In !!",
-        "user": user
+        "message": "Logged in successfully",
+        "access_token": token,
+        "token_type": "bearer",
+        "user": {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email
+        }
     }
-
 
 
 @router.post("/register")

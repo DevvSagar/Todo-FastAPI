@@ -17,12 +17,12 @@ def create_access_token(data: dict) -> str:
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + timedelta(minutes=config.access_token_expire_minutes)
     to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, config.secret_key, algorithm=config.algorithm or "HS256")
+    return jwt.encode(to_encode, config.secret_key, algorithm=config.algorithm)
 
 def verify_token(token:str):
     config = get_app_config()
     try:
-        payload = jwt.decode(token, config.secret_key, algorithm=[config.algorithm or "HS256"])
+        payload = jwt.decode(token, config.secret_key, algorithm=[config.algorithm])
         return payload
     except JWTError:
         raise HTTPException(status_code=401, detail="Invalid or expired token")
