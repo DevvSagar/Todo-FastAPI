@@ -2,12 +2,15 @@ from pydantic_settings import BaseSettings , SettingsConfigDict
 from functools import lru_cache
 
 class APP_config(BaseSettings):
-    app_name:str = "FASTAPI"
-    app_env:str = "DEVELOPMENT"
-    database_url:str
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_DB: str
+    app_name: str = "FASTAPI"
+    app_env: str = "DEVELOPMENT"
+    database_url: str
+    postgres_user: str
+    postgres_password: str
+    postgres_db: str
+    secret_key: str
+    algorithm: str
+    access_token_expire_minutes: int
     
     model_config= SettingsConfigDict(env_file=".env")
 
