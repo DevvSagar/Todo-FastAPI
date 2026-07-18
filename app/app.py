@@ -1,5 +1,5 @@
 from fastapi import FastAPI , Depends
-from app.routing import todo , auth
+from app.routes import todo , auth
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from app.config.app_config import get_app_config

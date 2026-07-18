@@ -1,6 +1,6 @@
 from sqlalchemy import Integer , DateTime , Boolean , String , VARCHAR 
 from sqlalchemy.orm import Mapped , mapped_column
-from ..db import Base
+from ..database.db import Base
 from datetime import datetime , timezone
 
 class UserSchema(Base):

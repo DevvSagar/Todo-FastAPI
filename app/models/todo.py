@@ -1,9 +1,9 @@
 from sqlalchemy import Integer,String,Boolean,DateTime
 from sqlalchemy.orm import Mapped , mapped_column
-from ..db import Base
+from ..database.db import Base
 from datetime import datetime, timezone
 
-class Todo_Schema(Base):
+class TodoSchema(Base):
     __tablename__ = "todos"
 
     id : Mapped[int] = mapped_column(Integer, primary_key=True, index=True, autoincrement=True)

@@ -3,9 +3,9 @@ from app.models.user_model import Register , Login
 from app.database.db import get_db
 from typing import Annotated
 from sqlalchemy.orm import Session
-from app.database.schema.user_schema import UserSchema
+from app.schema.user_schema import UserSchema
 from fastapi.responses import JSONResponse
-from app.helper import hashpassword , verifyPassword , create_access_token , verify_token
+from app.security import hashpassword , verifyPassword , create_access_token , verify_token
 
 router = APIRouter(prefix="/auth")
 

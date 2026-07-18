@@ -3,7 +3,7 @@ from app.models.todo_model import CreateTodo
 from typing import Annotated
 from sqlalchemy.orm import Session
 from app.database.db import get_db
-from app.database.schema.todo_schema import Todo_Schema 
+from app.schema.todo_schema import Todo_Schema 
 from sqlalchemy import select 
 from app.dependencies import authenicate_user
 
