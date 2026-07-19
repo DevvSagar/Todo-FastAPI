@@ -1,4 +1,4 @@
-from app.models.todo import TodoSchema
-from app.models.user import UserSchema
+from app.models.todo import TodoModel
+from app.models.user import UserModel
 
-__all__ = ["TodoSchema","UserSchema"]
+__all__ = ["TodoModel","UserModel"]
